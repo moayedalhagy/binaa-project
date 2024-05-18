@@ -3,17 +3,13 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
+//modify the forcejson middleware if you want to use web
+
+
 
 Route::get('/', function () {
-    return User::with('role')->paginate();
+
+
+    return response()->json(status: 204);
 });
