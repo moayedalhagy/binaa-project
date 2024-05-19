@@ -14,7 +14,7 @@ class AuthService
 {
 
 
-    public static function login(array $request): array
+    public static function login(array $request)
     {
         $username = $request['username'];
         $password = $request['password'];
@@ -24,15 +24,16 @@ class AuthService
 
         if ($user && Hash::check($password, $user->password)) {
 
-            $token =  $user->createToken($user->name);
-
             return [
                 'id' => $user->id,
                 'name' => $user->name,
-                'api_token' => $token->plainTextToken,
+                'api_token' => $user->createToken($user->name)->plainTextToken,
                 'role' => $user->role->name
             ];
         }
+
+
+        ExceptionService::invalidCredentials();
     }
 
     // delete the current token only

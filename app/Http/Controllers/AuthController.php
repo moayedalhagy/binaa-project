@@ -12,7 +12,7 @@ class AuthController extends Controller
     {
         $data =  AuthService::login($request->validated());
 
-        return response()->json($data);
+        return $this->successJson($data);
     }
     public function logout()
     {
