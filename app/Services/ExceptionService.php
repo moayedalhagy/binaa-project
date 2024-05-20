@@ -69,7 +69,7 @@ class ExceptionService
         throw new ApiLevelException(
             error_key: $key,
             custom_message: __($trans_key),
-            code: Response::HTTP_FORBIDDEN,
+            code: Response::HTTP_UNPROCESSABLE_ENTITY,
             details: $details,
         );
     }
@@ -87,6 +87,48 @@ class ExceptionService
             error_key: $key,
             custom_message: __($trans_key),
             code: Response::HTTP_INTERNAL_SERVER_ERROR,
+            details: [],
+        );
+    }
+
+
+    public static function createFailed()
+    {
+        $key = 'create-failed';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_CONFLICT,
+            details: [],
+        );
+    }
+
+    public static function notFound()
+    {
+        $key = 'not-found';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_NOT_FOUND,
+            details: [],
+        );
+    }
+    public static function updateFailed()
+    {
+        $key = 'update-failed';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_NOT_FOUND,
             details: [],
         );
     }
