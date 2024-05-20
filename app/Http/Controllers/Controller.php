@@ -11,7 +11,7 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
 
-    protected function successJson(array $data = [], int $httpCode = 200)
+    protected function successJson(mixed $data = [], int $httpCode = 200)
     {
         return response()->json([
             'success' => true,
