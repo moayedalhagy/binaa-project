@@ -8,7 +8,7 @@ class LevelService
 {
     public function getAll()
     {
-        return Level::simplePaginate();
+        return Level::orderBy('sort_order')->simplePaginate();
     }
 
     public function create(mixed $request): Level
