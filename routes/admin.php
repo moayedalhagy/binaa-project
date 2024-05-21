@@ -1,23 +1,22 @@
 <?php
 
-use App\Http\Controllers\ExceptionMessagesController;
-use App\Http\Controllers\DaysController;
-use App\Http\Controllers\LevelController;
-use App\Http\Controllers\QuestionTypeController;
-use App\Http\Controllers\RolesController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 
 
-Route::apiResource('levels', LevelController::class);
+Route::apiResource('levels', App\Http\Controllers\LevelController::class);
 
-Route::apiResource('users', UserController::class);
+Route::apiResource('users', App\Http\Controllers\UserController::class);
 
-Route::get('roles', RolesController::class);
+Route::apiResource('questions', App\Http\Controllers\QuestionController::class);
 
-Route::get('exceptions-messages', ExceptionMessagesController::class);
 
-Route::get('days', DaysController::class);
 
-Route::get('question-types', QuestionTypeController::class);
+
+Route::get('roles', App\Http\Controllers\RolesController::class);
+
+Route::get('exceptions-messages', App\Http\Controllers\ExceptionMessagesController::class);
+
+Route::get('days', App\Http\Controllers\DaysController::class);
+
+Route::get('question-types', App\Http\Controllers\QuestionTypeController::class);
