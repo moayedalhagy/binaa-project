@@ -9,6 +9,11 @@ use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+
+use App\Observers\QuestionObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+
+#[ObservedBy([QuestionObserver::class])]
 class Question extends Model
 {
     use CreatedUpdatedBy;

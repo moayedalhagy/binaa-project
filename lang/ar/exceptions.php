@@ -10,4 +10,6 @@ return [
     'create-failed' => 'فشلت عملية انشاء عنصر جديد',
     'not-found' => 'سجل غير موجود',
     'update-failed' => 'فشلت عملية تحديث العنصر',
+    'question-type-not-multichoice' => 'لايمكنك اضافة خيارات الى  هذا السؤال',
+    'question-type-change-forbidden' => 'لا يمكنك تغير نوع السؤال بسبب وجود خيارات مرتبطة بهذا السؤال',
 ];

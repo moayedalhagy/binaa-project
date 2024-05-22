@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Exceptions\ApiLevelException;
+use App\Enums\QuestionType;
 use App\Models\Question;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -29,9 +29,7 @@ class QuestionService
 
     public function update(mixed $request, string $id)
     {
-
-        $this
-            ->get($id)
+        $this->get($id)
             ->update($request) == 0
             ? ExceptionService::updateFailed() : null;
     }
@@ -49,6 +47,10 @@ class QuestionService
     public function createOption(mixed $request, string $ques_id)
     {
         $question = $this->get($ques_id);
+
+        if ($question->type != QuestionType::Multichoice) {
+            ExceptionService::questionTypeNotMultichoice();
+        }
 
         return $question
             ->options()
@@ -110,5 +112,13 @@ class QuestionService
             ->options()
             ->whereIsCorrect(true)
             ->count() > 0 ? true : false;
+    }
+
+    public static function hasOptions(Question | string $question): bool
+    {
+
+        $model = $question instanceof Question ? $question :  Question::find($question);
+
+        return $model->options()->count() > 0 ? true : false;
     }
 }

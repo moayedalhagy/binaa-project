@@ -132,4 +132,31 @@ class ExceptionService
             details: [],
         );
     }
+
+    public static function questionTypeNotMultichoice()
+    {
+        $key = 'question-type-not-multichoice';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_CONFLICT,
+            details: [],
+        );
+    }
+    public static function questionTypeChangeForbidden()
+    {
+        $key = 'question-type-change-forbidden';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_CONFLICT,
+            details: [],
+        );
+    }
 }
