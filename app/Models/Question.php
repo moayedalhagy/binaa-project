@@ -7,8 +7,7 @@ use App\Enums\QuestionType;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
-
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Question extends Model
 {
@@ -34,5 +33,10 @@ class Question extends Model
     public function level(): BelongsTo
     {
         return $this->belongsTo(Level::class);
+    }
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(Option::class);
     }
 }

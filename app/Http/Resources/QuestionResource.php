@@ -18,7 +18,8 @@ class QuestionResource extends JsonResource
             'day' => $this->day,
             'type' => $this->type,
             'sort_order' => $this->sort_order,
-            'level' => new LevelResource($this->whenLoaded('level'))
+            'level' => new LevelResource($this->whenLoaded('level')),
+            'options' =>   OptionResource::collection($this->whenLoaded('options'))
         ];
     }
 }
