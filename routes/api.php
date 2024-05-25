@@ -2,9 +2,8 @@
 
 
 use App\Http\Controllers\AuthController;
-use App\Services\ExceptionService;
-
-use Illuminate\Http\Request;
+use App\Http\Controllers\MyAccountController;
+use App\Http\Controllers\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,10 +12,7 @@ Route::post('/auth/logout', [AuthController::class, 'logout']);
 
 
 
-Route::get('/me', function (Request $request) {
+Route::get('/me', MyAccountController::class);
 
 
-    ExceptionService::unauthorizedAction();
-
-    return $request->user();
-});
+Route::post('/change-password', ChangePasswordController::class);
