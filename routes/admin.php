@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('levels', App\Http\Controllers\LevelController::class);
 
+
+Route::prefix('levels/{id}')
+    ->controller(App\Http\Controllers\LevelController::class)
+    ->group(function () {
+
+        Route::post('versions', 'storeVersion');
+    });
+
+
 Route::apiResource('users', App\Http\Controllers\UserController::class);
 
 

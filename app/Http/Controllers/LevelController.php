@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LevelRequests\StoreLevelRequest;
+use App\Http\Requests\LevelRequests\StoreLevelVersionRequest;
 use App\Http\Requests\LevelRequests\UpdateLevelRequest;
 use App\Http\Resources\LevelResource;
 use App\Http\Resources\WrapCollection;
@@ -30,7 +31,7 @@ class LevelController extends Controller
     public function store(StoreLevelRequest $request)
     {
 
-        $created = $this->service->create($request);
+        $created = $this->service->create($request->validated());
 
         return $this->successJson(new LevelResource($created), 201);
     }
@@ -50,5 +51,12 @@ class LevelController extends Controller
         $this->service->update($request, $id);
 
         return $this->successJson([], 204);
+    }
+
+    public function storeVersion(StoreLevelVersionRequest $request)
+    {
+        $created = $this->service->create($request->validated());
+
+        return $this->successJson(new LevelResource($created), 201);
     }
 }
