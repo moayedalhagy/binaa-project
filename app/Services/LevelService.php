@@ -23,9 +23,13 @@ class LevelService
 
     public function update(mixed $request, string $id)
     {
-        $this
-            ->get($id)
-            ->update($request->toArray()) == 0 ? ExceptionService::updateFailed() : null;
+        $level = $this->get($id);
+
+        if ($level->published == true) {
+            ExceptionService::updatingForPublishedForbidden();
+        }
+
+        $level->update($request->toArray()) == 0 ? ExceptionService::updateFailed() : null;
     }
 
     public function isPublished(string $id): bool
@@ -36,5 +40,16 @@ class LevelService
     public function isParent(string $id): bool
     {
         return $this->get($id)->parent_id == null;
+    }
+
+    public function latestVersion(string $id): level
+    {
+        $level = $this->get($id);
+
+        if ($level->versions()->exists()) {
+            return $level->versions()->orderBy('id', 'desc')->first();
+        }
+
+        return $level;
     }
 }

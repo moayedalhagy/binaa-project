@@ -39,7 +39,12 @@ class LevelController extends Controller
 
     public function show(int $id)
     {
-        $record = $this->service->get($id);
+        $query = request()->query();
+
+        $record = array_key_exists('latest', $query)
+            ? $this->service->latestVersion($id)
+            : $this->service->get($id);
+
 
         return $this->successJson(new LevelResource($record), 200);
     }

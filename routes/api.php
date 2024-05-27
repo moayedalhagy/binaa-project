@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Models\Level;
+use App\Services\LevelService;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,7 +18,3 @@ Route::get('/me', MyAccountController::class);
 
 
 Route::post('/change-password', ChangePasswordController::class);
-
-Route::get('/level', function () {
-    return Level::find(1)->versions;
-});

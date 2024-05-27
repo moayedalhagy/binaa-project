@@ -19,6 +19,9 @@ class QuestionService
 
     public function create(mixed $request): Question
     {
+        if ((new LevelService)->isPublished($request['level_id'])) {
+            ExceptionService::updatingForPublishedForbidden();
+        }
         return Question::create($request) ?? ExceptionService::createFailed();
     }
 
@@ -29,8 +32,13 @@ class QuestionService
 
     public function update(mixed $request, string $id)
     {
-        $this->get($id)
-            ->update($request) == 0
+        $question = $this->get($id);
+
+        if ($question->level->published == 1) {
+            ExceptionService::updatingForPublishedForbidden();
+        }
+
+        $question->update($request) == 0
             ? ExceptionService::updateFailed() : null;
     }
 
@@ -47,6 +55,10 @@ class QuestionService
     public function createOption(mixed $request, string $ques_id)
     {
         $question = $this->get($ques_id);
+
+        if ($question->level->published == 1) {
+            ExceptionService::updatingForPublishedForbidden();
+        }
 
         if ($question->type != QuestionType::Multichoice) {
             ExceptionService::questionTypeNotMultichoice();
@@ -65,6 +77,10 @@ class QuestionService
         try {
 
             $question = $this->get($ques_id);
+
+            if ($question->level->published == 1) {
+                ExceptionService::updatingForPublishedForbidden();
+            }
 
             $correctOptionDuplicated =
                 key_exists('is_correct', $request)

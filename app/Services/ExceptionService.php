@@ -159,4 +159,17 @@ class ExceptionService
             details: [],
         );
     }
+    public static function updatingForPublishedForbidden()
+    {
+        $key = 'updating-for-published-forbidden';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_FORBIDDEN,
+            details: [],
+        );
+    }
 }
