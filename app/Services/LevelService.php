@@ -95,4 +95,17 @@ class LevelService
     {
         return $this->currentVersion($level)->published == true;
     }
+
+    public function getVersions(string $levelId)
+    {
+        return $this->get($levelId)->versions;
+    }
+    public function getVersionQuestions(string $levelId, string $versionId)
+    {
+        return $this->get($levelId)
+            ->versions()
+            ->where('id', $versionId)
+            ->first()
+            ->questions;
+    }
 }

@@ -12,6 +12,8 @@ Route::prefix('levels/{id}')
     ->group(function () {
 
         Route::post('versions', 'storeVersion');
+        Route::get('versions', 'getVersions');
+        Route::get('versions/{version_id}/questions', 'getVersionQuestions');
     });
 
 

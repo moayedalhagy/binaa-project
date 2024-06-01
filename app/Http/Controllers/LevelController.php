@@ -6,6 +6,8 @@ use App\Http\Requests\LevelRequests\StoreLevelRequest;
 use App\Http\Requests\LevelRequests\StoreLevelVersionRequest;
 use App\Http\Requests\LevelRequests\UpdateLevelRequest;
 use App\Http\Resources\LevelResource;
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\VersionResource;
 use App\Http\Resources\WrapCollection;
 
 class LevelController extends Controller
@@ -61,5 +63,17 @@ class LevelController extends Controller
         $created = $this->service->storeVersion($levelId, $request->validated());
 
         return $this->successJson(new LevelResource($created), 201);
+    }
+
+    public function getVersions(string $levelId)
+    {
+        $data = $this->service->getVersions($levelId);
+        return $this->successJson(VersionResource::collection($data));
+    }
+    public function getVersionQuestions(string $levelId, string $versionId)
+    {
+        $data = $this->service->getVersionQuestions($levelId, $versionId);
+
+        return $this->successJson(QuestionResource::collection($data));
     }
 }
