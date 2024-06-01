@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 
 
-//TODO: full refactoring
+
 class QuestionService
 {
 
