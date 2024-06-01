@@ -13,4 +13,5 @@ return [
     'question-type-not-multichoice' => 'لايمكنك اضافة خيارات الى  هذا السؤال',
     'question-type-change-forbidden' => 'لا يمكنك تغير نوع السؤال بسبب وجود خيارات مرتبطة بهذا السؤال',
     'updating-for-published-forbidden' => 'لا يمكن اجراء اي تعديل على المستويات التي تم نشرها',
+    'last-version-is-not-published' => 'يوجد اصدارات غير منشورة',
 ];

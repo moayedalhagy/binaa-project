@@ -37,7 +37,7 @@ class LevelController extends Controller
     }
 
 
-    //TODO:  refactor
+
     public function show(int $id)
     {
 
@@ -55,10 +55,10 @@ class LevelController extends Controller
         return $this->successJson([], 204);
     }
 
-    //TODO:  refactor
-    public function storeVersion(StoreLevelVersionRequest $request)
+
+    public function storeVersion(StoreLevelVersionRequest $request, string $levelId)
     {
-        $created = $this->service->create($request->validated());
+        $created = $this->service->storeVersion($levelId, $request->validated());
 
         return $this->successJson(new LevelResource($created), 201);
     }

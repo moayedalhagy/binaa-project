@@ -20,7 +20,6 @@ class UpdateLevelRequest extends FormRequest
 
         return [
             'label' => ['sometimes', "unique:levels,label,{$id},id"],
-            // 'value' => ['sometimes', 'numeric', 'between:1.00,100'],
             'sort_order' => ['sometimes', 'integer', 'gt:0', "unique:levels,sort_order,{$id},id"],
         ];
     }

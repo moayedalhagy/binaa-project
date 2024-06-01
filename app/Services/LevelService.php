@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Models\Level;
 use App\Models\Version;
-
-
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class LevelService
 {
     public function getAll()
     {
-        return Level::orderBy('sort_order')->simplePaginate();
+        return Level::orderBy('sort_order')->with('currentVersion')->simplePaginate();
     }
 
     public function versions(string $levelId)
@@ -19,10 +19,29 @@ class LevelService
         return $this->get($levelId)->load('versions');
     }
 
-    //TODO: try to after create level to create first version (version one)
+
     public function create(mixed $data): Level
     {
-        return Level::create($data) ?? ExceptionService::createFailed();
+
+        DB::beginTransaction();
+        try {
+            $level  = Level::create($data) ?? ExceptionService::createFailed();
+
+            $level
+                ->versions()
+                ->create([
+                    'value' => $data['value'],
+                ]) ?? ExceptionService::createFailed();
+
+            DB::commit();
+        } catch (Exception $e) {
+
+            DB::rollBack();
+
+            throw $e;
+        }
+
+        return $level;
     }
 
     public function get(string $id): Level
@@ -33,14 +52,34 @@ class LevelService
 
     public function update(mixed $request, string $id)
     {
-        $this->get($id)
-            ->update($request) == 0
-            ? ExceptionService::updateFailed() : null;
+        $level = $this->get($id);
+
+        if ($level->currentVersion->published) {
+            ExceptionService::updatingForPublishedForbidden();
+        }
+
+        $level->update($request) == 0 ? ExceptionService::updateFailed() : null;
     }
 
-    public function currentVersion(string $levelId): Version
+    public function storeVersion($levelId, mixed $data): Level
     {
         $level = $this->get($levelId);
+
+        if ($level->currentVersion->published == false) {
+            ExceptionService::lastVersionIsNotPublished();
+        }
+
+        $level
+            ->versions()
+            ->create(['value' => $data['value']]) ?? ExceptionService::createFailed();
+
+        return $level->load('currentVersion');
+    }
+
+
+    public function currentVersion(string|Level $levelId): Version
+    {
+        $level = $levelId instanceof Level ? $levelId : $this->get($levelId);
 
         if (!$level->versions()->exists()) {
             throw ExceptionService::unhandledExceptionThrowable();
@@ -48,14 +87,12 @@ class LevelService
 
         return
             $level
-            ->versions()
-            ->orderBy('id', 'desc')
-            ->first();
+            ->currentVersion;
     }
 
     // version is published ( usually we handle the latest version)
-    public function isPublished(string $id): bool
+    public function isPublished(string|Level $level): bool
     {
-        return $this->currentVersion($id)->published == true;
+        return $this->currentVersion($level)->published == true;
     }
 }

@@ -6,6 +6,7 @@ use App\Enums\Days;
 use App\Enums\QuestionType;
 use App\Models\Level;
 use App\Models\Question;
+use App\Services\LevelService;
 use Illuminate\Database\Seeder;
 
 class TempSeeder extends Seeder
@@ -34,17 +35,18 @@ class TempSeeder extends Seeder
             'published' => false
         ]);
         //////////////////////////
-        Level::create([
+        $levelTwo = Level::create([
             'label' => 'two',
             // 'value' => 50,
             'sort_order' => 2,
         ]);
 
-        Level::create([
-            'label' => 'three',
-            // 'value' => 50,
-            'sort_order' => 3,
+        $levelTwo->versions()->create([
+            'value' => 80,
+            'published' => false
         ]);
+
+
         ///////
         Question::create([
             'version_id' => $versionOne->id,

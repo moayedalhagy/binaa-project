@@ -15,7 +15,7 @@ class QuestionService
     public function getAll()
     {
         return Question::orderBy('sort_order')
-            ->with('version')
+            // ->with('version.level')
             ->simplePaginate();
     }
 
@@ -36,7 +36,7 @@ class QuestionService
     {
         $question = $this->get($id);
 
-        if ($question->level->published == 1) {
+        if ($question->version->published == 1) {
             ExceptionService::updatingForPublishedForbidden();
         }
 
@@ -58,7 +58,7 @@ class QuestionService
     {
         $question = $this->get($ques_id);
 
-        if ($question->level->published == 1) {
+        if ($question->version->published == 1) {
             ExceptionService::updatingForPublishedForbidden();
         }
 
@@ -80,7 +80,8 @@ class QuestionService
 
             $question = $this->get($ques_id);
 
-            if ($question->level->published == 1) {
+
+            if ($question->version->published == 1) {
                 ExceptionService::updatingForPublishedForbidden();
             }
 
