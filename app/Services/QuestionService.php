@@ -24,8 +24,19 @@ class QuestionService
         if ((new LevelService)->isPublished($request['level_id'])) {
             ExceptionService::updatingForPublishedForbidden();
         }
-        return Question::create($request) ?? ExceptionService::createFailed();
+        return $this->handleCreating($request);
     }
+
+    private function handleCreating(mixed $data): Question
+    {
+        $data['version_id'] = (new LevelService)
+            ->get($data['level_id'])
+            ->currentVersion
+            ->id;
+
+        return Question::create($data) ?? ExceptionService::createFailed();
+    }
+
 
     public function get(string $id): Question
     {
