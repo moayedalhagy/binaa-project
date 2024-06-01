@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Models\Level;
+use App\Models\Version;
+
+
 
 class LevelService
 {
@@ -11,6 +14,12 @@ class LevelService
         return Level::orderBy('sort_order')->simplePaginate();
     }
 
+    public function versions(string $levelId)
+    {
+        return $this->get($levelId)->load('versions');
+    }
+
+    //TODO: try to after create level to create first version (version one)
     public function create(mixed $data): Level
     {
         return Level::create($data) ?? ExceptionService::createFailed();
@@ -18,38 +27,35 @@ class LevelService
 
     public function get(string $id): Level
     {
-        return Level::find($id) ?? ExceptionService::notFound();
+
+        return Level::find($id)->load('currentVersion') ?? ExceptionService::notFound();
     }
 
     public function update(mixed $request, string $id)
     {
-        $level = $this->get($id);
-
-        if ($level->published == true) {
-            ExceptionService::updatingForPublishedForbidden();
-        }
-
-        $level->update($request->toArray()) == 0 ? ExceptionService::updateFailed() : null;
+        $this->get($id)
+            ->update($request) == 0
+            ? ExceptionService::updateFailed() : null;
     }
 
+    public function currentVersion(string $levelId): Version
+    {
+        $level = $this->get($levelId);
+
+        if (!$level->versions()->exists()) {
+            throw ExceptionService::unhandledExceptionThrowable();
+        }
+
+        return
+            $level
+            ->versions()
+            ->orderBy('id', 'desc')
+            ->first();
+    }
+
+    // version is published ( usually we handle the latest version)
     public function isPublished(string $id): bool
     {
-        return $this->get($id)->published == true;
-    }
-
-    public function isParent(string $id): bool
-    {
-        return $this->get($id)->parent_id == null;
-    }
-
-    public function latestVersion(string $id): level
-    {
-        $level = $this->get($id);
-
-        if ($level->versions()->exists()) {
-            return $level->versions()->orderBy('id', 'desc')->first();
-        }
-
-        return $level;
+        return $this->currentVersion($id)->published == true;
     }
 }

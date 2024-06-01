@@ -6,14 +6,16 @@ use App\Enums\QuestionType;
 use App\Models\Question;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
+
+//TODO: full refactoring
 class QuestionService
 {
+
     public function getAll()
     {
         return Question::orderBy('sort_order')
-            ->with('level')
+            ->with('version')
             ->simplePaginate();
     }
 

@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('levels', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('parent_id')->nullable();
+            // $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('label', 50)->unique();
-            $table->decimal('value', 5, 2); // 100.99
-            $table->integer('sort_order')->nullable()->unique();
-            $table->boolean('published')->default(false);
+            // $table->decimal('value', 5, 2); // 100.99
+            // $table->integer('sort_order')->nullable()->unique();
+            $table->integer('sort_order', autoIncrement: false, unsigned: true)->unique();
+            // $table->boolean('published')->default(false);
             $table->timestamps();
 
             $table->unsignedBigInteger('created_by')->nullable();
@@ -27,11 +28,11 @@ return new class extends Migration
 
 
 
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('levels')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
+            // $table->foreign('parent_id')
+            //     ->references('id')
+            //     ->on('levels')
+            //     ->cascadeOnUpdate()
+            //     ->restrictOnDelete();
 
             $table->foreign('created_by')
                 ->references('id')

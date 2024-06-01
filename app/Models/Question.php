@@ -20,7 +20,7 @@ class Question extends Model
 
 
     protected $fillable = [
-        'level_id',
+        'version_id',
         'label',
         'points',
         'type',
@@ -35,9 +35,9 @@ class Question extends Model
 
     //realtions
 
-    public function level(): BelongsTo
+    public function version(): BelongsTo
     {
-        return $this->belongsTo(Level::class);
+        return $this->belongsTo(Version::class);
     }
 
     public function options(): HasMany

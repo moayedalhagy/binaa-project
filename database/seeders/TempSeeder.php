@@ -6,7 +6,6 @@ use App\Enums\Days;
 use App\Enums\QuestionType;
 use App\Models\Level;
 use App\Models\Question;
-use App\Services\LevelService;
 use Illuminate\Database\Seeder;
 
 class TempSeeder extends Seeder
@@ -14,24 +13,41 @@ class TempSeeder extends Seeder
 
     public function run(): void
     {
+
         $LevelOne = Level::create([
             'label' => 'One',
-            'value' => 20,
             'sort_order' => 1,
         ]);
-        Level::create([
-            'label' => 'two',
-            'value' => 50,
-            'sort_order' => 2,
-        ]);
-        Level::create([
-            'label' => 'three',
-            'value' => 50,
-            'sort_order' => 3,
+
+        $versionOne = $LevelOne->versions()->create([
+            'value' => 60,
+            'published' => false
         ]);
 
+        $versionTwo = $LevelOne->versions()->create([
+            'value' => 70,
+            'published' => false
+        ]);
+
+        $versionThree = $LevelOne->versions()->create([
+            'value' => 80,
+            'published' => false
+        ]);
+        //////////////////////////
+        Level::create([
+            'label' => 'two',
+            // 'value' => 50,
+            'sort_order' => 2,
+        ]);
+
+        Level::create([
+            'label' => 'three',
+            // 'value' => 50,
+            'sort_order' => 3,
+        ]);
+        ///////
         Question::create([
-            'level_id' => $LevelOne->id,
+            'version_id' => $versionOne->id,
             'label' => 'هل صليت الفجر ؟',
             'points' => 10,
             'type' => QuestionType::Yes_no,
@@ -40,7 +56,7 @@ class TempSeeder extends Seeder
         ]);
 
         Question::create([
-            'level_id' => $LevelOne->id,
+            'version_id' => $versionOne->id,
             'label' => 'هل صليت الظهر ؟',
             'points' => 10,
             'type' => QuestionType::Yes_no,
@@ -48,7 +64,7 @@ class TempSeeder extends Seeder
             'sort_order' => 2
         ]);
         Question::create([
-            'level_id' => $LevelOne->id,
+            'version_id' => $LevelOne->id,
             'label' => 'هل صليت العصر ؟',
             'points' => 10,
             'type' => QuestionType::Yes_no,
@@ -56,7 +72,7 @@ class TempSeeder extends Seeder
             'sort_order' => 3
         ]);
         $question = Question::create([
-            'level_id' => $LevelOne->id,
+            'version_id' => $versionOne->id,
             'label' => 'ما هو العام الحالي',
             'points' => 10,
             'type' => QuestionType::Multichoice,

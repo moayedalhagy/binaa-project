@@ -17,7 +17,7 @@ class StoreLevelRequest extends FormRequest
     {
         return [
             'label' => ['required', 'unique:levels,label'],
-            'value' => ['required', 'numeric', 'between:1.00,100'],
+            // 'value' => ['required', 'numeric', 'between:1.00,100'],
             'sort_order' => ['required', 'integer', 'gt:0', 'unique:levels,sort_order'],
         ];
     }

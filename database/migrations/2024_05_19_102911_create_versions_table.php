@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('versions', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('version_id');
-            $table->string('label');
-            $table->decimal('points');
-            $table->tinyInteger('type');
-            $table->tinyInteger('day');
-            $table->tinyInteger('sort_order', autoIncrement: false, unsigned: true)->unique();
-
+            $table->unsignedBigInteger('level_id');
+            $table->decimal('value', 5, 2); // 100.99
+            $table->boolean('published')->default(false);
 
             $table->timestamps();
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
+
+            $table->foreign('level_id')
+                ->references('id')
+                ->on('levels')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
 
             $table->foreign('created_by')
                 ->references('id')
@@ -33,15 +35,10 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
+
             $table->foreign('updated_by')
                 ->references('id')
                 ->on('users')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
-
-            $table->foreign('version_id')
-                ->references('id')
-                ->on('versions')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
         });
@@ -52,6 +49,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('versions');
     }
 };

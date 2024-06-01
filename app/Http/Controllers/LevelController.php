@@ -37,13 +37,11 @@ class LevelController extends Controller
     }
 
 
+    //TODO:  refactor
     public function show(int $id)
     {
-        $query = request()->query();
 
-        $record = array_key_exists('latest', $query)
-            ? $this->service->latestVersion($id)
-            : $this->service->get($id);
+        $record =  $this->service->get($id);
 
 
         return $this->successJson(new LevelResource($record), 200);
@@ -52,12 +50,12 @@ class LevelController extends Controller
 
     public function update(UpdateLevelRequest $request, string $id)
     {
-
-        $this->service->update($request, $id);
+        $this->service->update($request->validated(), $id);
 
         return $this->successJson([], 204);
     }
 
+    //TODO:  refactor
     public function storeVersion(StoreLevelVersionRequest $request)
     {
         $created = $this->service->create($request->validated());
