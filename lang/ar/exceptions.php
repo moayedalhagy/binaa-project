@@ -14,4 +14,5 @@ return [
     'question-type-change-forbidden' => 'لا يمكنك تغير نوع السؤال بسبب وجود خيارات مرتبطة بهذا السؤال',
     'updating-for-published-forbidden' => 'لا يمكن اجراء اي تعديل على المستويات التي تم نشرها',
     'last-version-is-not-published' => 'يوجد اصدارات غير منشورة',
+    'no-level-assign-to-user' => 'لا يوجد مستوى مخصص للمستخدم',
 ];

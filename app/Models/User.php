@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function version(): BelongsTo
+    {
+        return $this->belongsTo(Version::class);
+    }
+
     public function histories(): HasMany
     {
         return $this->hasMany(History::class);

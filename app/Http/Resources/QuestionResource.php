@@ -14,7 +14,7 @@ class QuestionResource extends JsonResource
         return [
             "id" => $this->id,
             "label" => $this->label,
-            "points" => $this->points,
+            "points" => (float)$this->points,
             'day' => $this->day,
             'type' => $this->type,
             'sort_order' => $this->sort_order,

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('points');
             $table->tinyInteger('type');
             $table->tinyInteger('day');
-            $table->tinyInteger('sort_order', autoIncrement: false, unsigned: true)->unique();
+            $table->tinyInteger('sort_order', autoIncrement: false, unsigned: true);
 
 
             $table->timestamps();

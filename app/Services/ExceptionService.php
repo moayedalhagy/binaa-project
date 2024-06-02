@@ -185,4 +185,17 @@ class ExceptionService
             details: [],
         );
     }
+    public static function noLevelAssignToUser()
+    {
+        $key = 'no-level-assign-to-user';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_NOT_FOUND,
+            details: [],
+        );
+    }
 }
