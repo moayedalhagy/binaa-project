@@ -108,4 +108,18 @@ class LevelService
             ->first()
             ->questions;
     }
+
+
+
+    public function publishLevel(string $levelId)
+    {
+        $level = Level::find($levelId);
+
+
+        if ($level->currentVersion->published == 1) {
+            ExceptionService::updatingForPublishedForbidden();
+        }
+
+        $level->currentVersion()->update(['published' => true]);
+    }
 }

@@ -76,4 +76,11 @@ class LevelController extends Controller
 
         return $this->successJson(QuestionResource::collection($data));
     }
+
+    public function publishLevel(string $levelId)
+    {
+        $this->service->publishLevel($levelId);
+
+        return $this->successJson();
+    }
 }
