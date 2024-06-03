@@ -24,6 +24,7 @@ class ASeeder extends Seeder
 
             History::create([
                 'user_id' => 2,
+                'version_id' => $question->version->id,
                 'question_id' => $question->id,
                 'points' => ($count == 3) ? $question->points - 7 : $question->points,
             ]);

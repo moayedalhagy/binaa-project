@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\History;
-
+use App\Models\User;
 
 class HistoryService
 {
@@ -22,6 +22,12 @@ class HistoryService
         return History::find($id) ?? ExceptionService::notFound();
     }
 
+    public function getForUser(string|User $_user)
+    {
+        $user = $_user instanceof User ? $_user : User::find($_user);
+
+        return $user->histories->sum('points');
+    }
     // public function update(mixed $request, string $id)
     // {
     //     $this
