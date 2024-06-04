@@ -21,7 +21,8 @@ class User extends Authenticatable
         'username',
         'password',
         'role_id',
-        'last_activity_time'
+        'last_activity_time',
+        'version_id'
     ];
 
 

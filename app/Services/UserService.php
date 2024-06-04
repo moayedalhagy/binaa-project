@@ -14,7 +14,13 @@ class UserService
 
     public function create(mixed $request): User
     {
-        return User::create($request->toArray()) ?? ExceptionService::createFailed();
+
+        $request['version_id'] = (new LevelService)
+            ->firstLevel()
+            ->currentVersion
+            ->id;
+
+        return User::create($request) ?? ExceptionService::createFailed();
     }
 
     public function get(string $id): User

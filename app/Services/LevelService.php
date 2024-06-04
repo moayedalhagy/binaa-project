@@ -19,6 +19,12 @@ class LevelService
         return $this->get($levelId)->load('versions');
     }
 
+    public function firstLevel()
+    {
+        return Level::where('sort_order', 1)
+            ->first()
+            ->load('currentVersion');
+    }
 
     public function create(mixed $data): Level
     {
