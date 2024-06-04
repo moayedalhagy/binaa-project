@@ -36,9 +36,3 @@ Route::prefix('questions/{id}')
 
 
 Route::get('roles', App\Http\Controllers\RolesController::class);
-
-Route::get('exceptions-messages', App\Http\Controllers\ExceptionMessagesController::class);
-
-Route::get('days', App\Http\Controllers\DaysController::class);
-
-Route::get('question-types', App\Http\Controllers\QuestionTypeController::class);
