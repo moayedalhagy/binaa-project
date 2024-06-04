@@ -16,7 +16,8 @@ class OptionResource extends JsonResource
         return [
             'id' => $this->id,
             'label' => $this->label,
-            'is_correct' => $this->when($isAdmin, $this->is_correct)
+            'is_correct' =>  $this->is_correct
+            // 'is_correct' => $this->when($isAdmin, $this->is_correct)
         ];
     }
 }

@@ -60,6 +60,7 @@ class UtilityService
             ->version
             // ->where('published', 0)
             ->questions()
+            ->with('options')
             ->orderBy('day')
             ->orderBy('sort_order')
             ->get();
