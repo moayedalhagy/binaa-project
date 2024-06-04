@@ -211,4 +211,17 @@ class ExceptionService
             details: [],
         );
     }
+    public static function levelMustHaveSevenDays()
+    {
+        $key = 'level-must-have-seven-days';
+
+        $trans_key = sprintf("%s.%s", self::ERROR_FILE, $key);
+
+        throw new ApiLevelException(
+            error_key: $key,
+            custom_message: __($trans_key),
+            code: Response::HTTP_FORBIDDEN,
+            details: [],
+        );
+    }
 }

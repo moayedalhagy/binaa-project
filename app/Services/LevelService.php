@@ -121,10 +121,25 @@ class LevelService
     {
         $level = Level::find($levelId);
 
+        $version = $level->currentVersion;
 
-        if ($level->currentVersion->published == 1) {
+        if ($version->published == 1) {
             ExceptionService::updatingForPublishedForbidden();
         }
+
+
+        $count = $version
+            ->questions()
+            ->selectRaw('day, count(*) as count')
+            ->groupBy('day')
+            ->first()
+            ?->count;
+
+        if ($count < 7) {
+            ExceptionService::levelMustHaveSevenDays();
+        }
+
+
 
         $level->currentVersion()->update(['published' => true]);
     }
