@@ -52,7 +52,7 @@ class TempSeeder extends Seeder
             'version_id' => $versionOne->id,
             'label' => 'هل صليت الفجر ؟',
             'points' => 10,
-            'type' => QuestionType::Yes_no,
+            'type' => QuestionType::Checkbox,
             'day' => Days::Saturday,
             'sort_order' => 1
         ]);
@@ -61,7 +61,7 @@ class TempSeeder extends Seeder
             'version_id' => $versionOne->id,
             'label' => 'هل صليت الظهر ؟',
             'points' => 10,
-            'type' => QuestionType::Yes_no,
+            'type' => QuestionType::Checkbox,
             'day' => Days::Saturday,
             'sort_order' => 2
         ]);
@@ -69,7 +69,7 @@ class TempSeeder extends Seeder
             'version_id' => $LevelOne->id,
             'label' => 'هل صليت العصر ؟',
             'points' => 10,
-            'type' => QuestionType::Yes_no,
+            'type' => QuestionType::Checkbox,
             'day' => Days::Saturday,
             'sort_order' => 3
         ]);
