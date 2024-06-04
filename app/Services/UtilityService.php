@@ -7,6 +7,7 @@ use App\Models\Version;
 use App\Services\Utilities\VersionPointsAggregatorService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class UtilityService
 {
@@ -50,15 +51,23 @@ class UtilityService
     }
 
 
-    //TODO: maybe we need to check if level is published 
-    public static function levelQuestions(string|User $_model)
+
+    public static function levelQuestions(string|User $_model, $onlyPublished = false)
     {
 
         $model = self::loadModel($_model);
 
-        return $model
-            ->version
-            // ->where('published', 0)
+        $version =  $model
+            ->version()
+            ->when($onlyPublished, function ($query) {
+                return $query->where('published', true);
+            })->first();
+
+        if ($onlyPublished && !$version) {
+            ExceptionService::currentLevelNotPublished();
+        }
+
+        return $version
             ->questions()
             ->with('options')
             ->orderBy('day')
