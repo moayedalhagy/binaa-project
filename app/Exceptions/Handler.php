@@ -6,6 +6,7 @@ use App\Services\ExceptionService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -48,6 +49,10 @@ class Handler extends ExceptionHandler
 
             if ($exception instanceof ValidationException) {
                 ExceptionService::validation($exception->validator->errors()->toArray());
+            }
+
+            if ($exception instanceof UniqueConstraintViolationException) {
+                ExceptionService::UniqueConstraint();
             }
 
 

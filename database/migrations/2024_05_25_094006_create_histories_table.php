@@ -20,6 +20,9 @@ return new class extends Migration
             $table->decimal('points');
             $table->timestamps();
 
+
+            $table->unique(['user_id', 'question_id']);
+
             //foreign
             $table->foreign('user_id')
                 ->references('id')

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\History;
 use App\Models\User;
+use App\Services\Classes\Answer;
 
 class HistoryService
 {
@@ -12,9 +13,14 @@ class HistoryService
         return History::simplePaginate();
     }
 
-    public function create(mixed $request): History
+    public function create(Answer $answer): History
     {
-        return History::create($request->toArray()) ?? ExceptionService::createFailed();
+        return History::create([
+            'question_id' => $answer->question_id,
+            'points' => $answer->points,
+            'user_id' => $answer->user_id,
+            'version_id' => $answer->version_id
+        ]) ?? ExceptionService::createFailed();
     }
 
     public function get(string $id): History
@@ -28,10 +34,4 @@ class HistoryService
 
         return $user->histories->sum('points');
     }
-    // public function update(mixed $request, string $id)
-    // {
-    //     $this
-    //         ->get($id)
-    //         ->update($request->toArray()) == 0 ? ExceptionService::updateFailed() : null;
-    // }
 }

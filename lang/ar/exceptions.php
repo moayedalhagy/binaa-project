@@ -17,4 +17,5 @@ return [
     'no-level-assign-to-user' => 'لا يوجد مستوى مخصص للمستخدم',
     'current-level-not-published' => 'لايمكن الوصول الى مستوى لم يتم نشره بعد',
     'level-must-have-seven-days' => 'يجب ان يحتوي المستوى 7 ايام',
+    'unique-constraint' => 'يوجد ادخالات مكررة',
 ];
