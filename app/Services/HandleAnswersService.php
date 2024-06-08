@@ -40,6 +40,8 @@ class HandleAnswersService
             DB::commit();
 
             //throw event calculation history
+
+            (new MarksCalculationService(auth()->user()))->isSuccess();
         } catch (Exception $exception) {
             DB::rollBack();
 
