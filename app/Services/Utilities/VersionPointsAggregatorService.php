@@ -4,6 +4,7 @@ namespace App\Services\Utilities;
 
 
 use App\Models\Version;
+use Illuminate\Support\Facades\Cache;
 
 class VersionPointsAggregatorService
 {
@@ -19,10 +20,14 @@ class VersionPointsAggregatorService
 
     public function __invoke()
     {
-        $questions =   $this->version
-            ->questions()
-            ->selectRaw('SUM(points) as sum,COUNT(points) as count')
-            ->first();
+        $key = CacheKeys::version($this->version->id);
+
+        $questions = Cache::remember($key, null, function () {
+            return   $this->version
+                ->questions()
+                ->selectRaw('SUM(points) as sum,COUNT(points) as count')
+                ->first();
+        });
 
         return [
             'questions_points' => (float)$questions->sum,
