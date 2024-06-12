@@ -130,7 +130,7 @@ class LevelService
 
         $count = $version
             ->questions()
-            ->selectRaw('COUNT(DISTINCT day)')
+            ->selectRaw('COUNT(DISTINCT day) as count')
             ->first()
             ?->count;
 
