@@ -130,8 +130,7 @@ class LevelService
 
         $count = $version
             ->questions()
-            ->selectRaw('day, count(*) as count')
-            ->groupBy('day')
+            ->selectRaw('COUNT(DISTINCT day)')
             ->first()
             ?->count;
 
@@ -144,3 +143,4 @@ class LevelService
         $level->currentVersion()->update(['published' => true]);
     }
 }
+// (new \App\Services\LevelService)->publishLevel(1)
