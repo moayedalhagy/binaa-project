@@ -21,6 +21,7 @@ return new class extends Migration
             $table->tinyInteger('day');
             $table->tinyInteger('sort_order', autoIncrement: false, unsigned: true);
 
+            $table->unique(['version_id', 'day', 'sort_order']);
 
             $table->timestamps();
 

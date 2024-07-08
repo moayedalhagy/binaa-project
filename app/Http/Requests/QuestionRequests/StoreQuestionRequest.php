@@ -29,7 +29,12 @@ class StoreQuestionRequest extends FormRequest
             "points" => ["required", "numeric"],
             "type" => ["required", Rule::in($type_cases)],
             "day" => ["required", Rule::in($day_cases)],
-            "sort_order" => ["required", "unique:questions,sort_order"]
+            "sort_order" => ["required", Rule::unique('questions')->where(function ($q) {
+                return
+                    $q->where('sort_order', $this->sort_order)
+                    ->where('day', $this->day)
+                    ->where('version_id', $this->level_id);
+            })]
         ];
     }
 }
