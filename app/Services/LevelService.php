@@ -106,6 +106,8 @@ class LevelService
     {
         return $this->get($levelId)->versions;
     }
+
+
     public function getVersionQuestions(string $levelId, string $versionId)
     {
         return $this->get($levelId)
@@ -141,6 +143,12 @@ class LevelService
 
 
         $level->currentVersion()->update(['published' => true]);
+    }
+
+
+    public function LoadLevels()
+    {
+        return Level::with(['versions', 'versions.questions'])->get();
     }
 }
 // (new \App\Services\LevelService)->publishLevel(1)
