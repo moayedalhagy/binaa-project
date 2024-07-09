@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Enums\Days;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,3 +36,6 @@ Route::prefix('questions/{id}')
 
 
 Route::get('roles', App\Http\Controllers\RolesController::class);
+
+// Route::get('test', function () {
+// });
