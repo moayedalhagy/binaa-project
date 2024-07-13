@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\History;
 use App\Models\User;
 use App\Services\Classes\Answer;
+use Exception;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 class HistoryService
 {
@@ -15,12 +17,20 @@ class HistoryService
 
     public function create(Answer $answer): History
     {
-        return History::create([
-            'question_id' => $answer->question_id,
-            'points' => $answer->points,
-            'user_id' => $answer->user_id,
-            'version_id' => $answer->version_id
-        ]) ?? ExceptionService::createFailed();
+
+        try {
+            return History::create([
+                'question_id' => $answer->question_id,
+                'points' => $answer->points,
+                'user_id' => $answer->user_id,
+                'version_id' => $answer->version_id
+            ]);
+        } catch (Exception $ex) {
+
+            if (!($ex instanceof UniqueConstraintViolationException)) {
+                throw $ex;
+            }
+        }
     }
 
     public function get(string $id): History
