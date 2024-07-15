@@ -54,7 +54,7 @@ class Answer
     private function correct(): bool
     {
         if ($this->isMultichoice) {
-            return $this->option->is_correct == true;
+            return ($this->option == null) ? false : ($this->option->is_correct == true);            
         } else {
             return (bool) $this->answer;
         }
