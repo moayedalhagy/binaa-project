@@ -51,4 +51,13 @@ class UserController extends Controller
 
         return $this->successJson([], 204);
     }
+
+
+    public function currentLevelHistories()
+    {
+
+        $data = $this->service->currentLevelHistories(auth()->user()->id);
+
+        return $this->successJson($data, 200);
+    }
 }

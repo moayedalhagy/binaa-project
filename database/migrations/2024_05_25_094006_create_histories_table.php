@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('version_id');
             $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('option_id');
             $table->decimal('points');
             $table->timestamps();
 
@@ -39,6 +40,12 @@ return new class extends Migration
             $table->foreign('question_id')
                 ->references('id')
                 ->on('questions')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->foreign('option_id')
+                ->references('id')
+                ->on('options')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
         });

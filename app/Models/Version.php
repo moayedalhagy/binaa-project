@@ -28,4 +28,9 @@ class Version extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function histories(): HasMany
+    {
+        return $this->hasMany(History::class);
+    }
 }
