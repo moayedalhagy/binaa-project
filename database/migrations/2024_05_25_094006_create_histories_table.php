@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('version_id');
             $table->unsignedBigInteger('question_id');
-            $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('option_id')->nullable();
             $table->decimal('points');
             $table->timestamps();
 
