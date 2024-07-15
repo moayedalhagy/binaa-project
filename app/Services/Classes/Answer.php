@@ -24,7 +24,7 @@ class Answer
 
     private bool $isMultichoice;
 
-    private Option|null $option;
+    public Option|null $option;
 
     public float $points;
     public function __construct($question_id, $answer, $option_id, $timestamp)

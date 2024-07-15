@@ -15,15 +15,16 @@ class HistoryService
         return History::simplePaginate();
     }
 
-    public function create(Answer $answer): History
+    public function create(Answer $answer)
     {
 
         try {
-            return History::create([
+            History::create([
                 'question_id' => $answer->question_id,
                 'points' => $answer->points,
                 'user_id' => $answer->user_id,
-                'version_id' => $answer->version_id
+                'version_id' => $answer->version_id,
+                'option_id' => $answer?->option?->id
             ]);
         } catch (Exception $ex) {
 

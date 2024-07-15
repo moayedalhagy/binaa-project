@@ -15,7 +15,8 @@ class History extends Model
         'user_id',
         'question_id',
         'points',
-        'version_id'
+        'version_id',
+        'option_id'
     ];
 
 
