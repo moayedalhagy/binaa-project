@@ -19,6 +19,7 @@ class UserResource extends JsonResource
                 "created_at" => $this->created_at,
                 "updated_at" => $this->updated_at,
             ]),
+            "role"=>$this->whenLoaded('role'),
 
             // "last_activity_time" => $this->last_activity_time,
             // "created_by" => $this->created_by,

@@ -10,7 +10,7 @@ class UserService
 {
     public function getAll()
     {
-        return User::simplePaginate();
+        return User::with('role')->simplePaginate();
     }
 
     public function create(mixed $request): User
@@ -26,7 +26,11 @@ class UserService
 
     public function get(string $id): User
     {
-        return User::find($id) ?? ExceptionService::notFound();
+        $user = User::find($id) ?? ExceptionService::notFound();
+
+        $user->role;
+
+        return $user;
     }
 
     public function update(mixed $request, string $id)
