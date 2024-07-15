@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,5 +47,17 @@ class UserService
     public static function checkPassword(User $user, $current_password): bool
     {
         return Hash::check($current_password, $user->password);
+    }
+
+
+    public function currentLevelHistories(string $id)
+    {
+        return History::where('user_id', $id)
+            ->select('id', 'points', 'question_id', 'option_id')
+            ->with([
+                'questions:id,points,label,type,day',
+                'options:id,label,is_correct'
+            ])
+            ->get();
     }
 }
