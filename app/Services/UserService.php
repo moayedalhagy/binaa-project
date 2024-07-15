@@ -57,7 +57,8 @@ class UserService
             ->with([
                 'questions:id,points,label,type,day',
                 'options:id,label,is_correct'
-            ])
-            ->get();
+            ])            
+            ->get()
+            ->groupBy('questions.day');
     }
 }
