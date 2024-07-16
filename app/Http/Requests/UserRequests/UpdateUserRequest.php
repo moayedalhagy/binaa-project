@@ -20,7 +20,7 @@ class UpdateUserRequest extends FormRequest
 
         return [
             'name' => ['sometimes', 'string', 'min:1'],
-            'username' => ['sometimes', 'string', 'min:5', "unique:users,username,{$id},id"],
+            'username' => ['sometimes', 'string', 'min:5', "unique:users,username,{$id}"],
             'password' => ['sometimes', 'string', 'min:8'],
             "role_id" => ['sometimes', 'exists:roles,id'],
         ];
