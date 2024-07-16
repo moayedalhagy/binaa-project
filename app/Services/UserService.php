@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\CurrentLevelHistoriesResource;
 use App\Models\History;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -61,8 +62,7 @@ class UserService
             ->with([
                 'questions:id,points,label,type,day',
                 'options:id,label,is_correct'
-            ])            
-            ->get()
-            ->groupBy('questions.day');
+            ])
+            ->get();
     }
 }
