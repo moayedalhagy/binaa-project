@@ -17,7 +17,7 @@ class CurrentLevelHistoriesResource extends JsonResource
         return [
             "id" => $this->id,
             "points" => $this->points,
-            "answer" => ((float)$this->points == 0) ? false : true,
+            "answer" => ((float)$this->points == 0) ? 0 : 1,
             "question_id" => $this->question_id,
             "option_id" => $this->option_id,
             "questions" =>  $this->questions,
