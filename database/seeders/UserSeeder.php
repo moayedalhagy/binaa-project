@@ -34,7 +34,8 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'password' => '12345678',
                 'role_id' => Role::where('name', Roles::Admin)->first()->id,
-                'version_id' => 1
+                'version_id' => 1,
+                'level_assigned_at' => now(),
 
             ],
             [
@@ -42,14 +43,16 @@ class UserSeeder extends Seeder
                 'username' => 'user',
                 'password' => '12345678',
                 'role_id' => Role::where('name', Roles::User)->first()->id,
-                'version_id' => 1
+                'version_id' => 1,
+                'level_assigned_at' => now(),
             ],
             [
                 'name' => 'Hidden User',
                 'username' => 'user2',
                 'password' => '12345678',
                 'role_id' => Role::where('name', Roles::HiddenUser)->first()->id,
-                'version_id' => 1
+                'version_id' => 1,
+                'level_assigned_at' => now(),
             ],
         ];
     }

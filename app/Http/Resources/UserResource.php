@@ -18,8 +18,9 @@ class UserResource extends JsonResource
             $this->mergeWhen($request->user()->role->name == Roles::Admin, [
                 "created_at" => $this->created_at,
                 "updated_at" => $this->updated_at,
+                // 'level_assigned_at' => $this->level_assigned_at,
             ]),
-            "role"=>$this->whenLoaded('role'),
+            "role" => $this->whenLoaded('role'),
 
             // "last_activity_time" => $this->last_activity_time,
             // "created_by" => $this->created_by,

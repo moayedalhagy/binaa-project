@@ -27,7 +27,8 @@ class AssignNextLevelService
     public function __invoke()
     {
         return $this->user->update([
-            'version_id' => $this->nextLevel->currentVersion->id
+            'version_id' => $this->nextLevel->currentVersion->id,
+            'level_assigned_at' => now(),
         ]);
     }
 }

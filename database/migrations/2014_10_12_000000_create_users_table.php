@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamps();
             $table->timestamp('last_activity_time')->nullable();
+            $table->timestamp('level_assigned_at')->nullable();
         });
     }
 

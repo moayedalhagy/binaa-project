@@ -22,6 +22,9 @@ class UserService
             ->currentVersion
             ->id;
 
+
+        $request['level_assigned_at'] = now();
+
         return User::create($request) ?? ExceptionService::createFailed();
     }
 
