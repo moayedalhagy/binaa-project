@@ -38,3 +38,9 @@ Route::prefix('questions/{id}')
 Route::get('roles', App\Http\Controllers\RolesController::class);
 
 Route::get('statistics', \App\Http\Controllers\StatisticsController::class);
+
+
+// Route::get('/test', function () {
+// });
+
+Route::get('/levels-users-count', \App\Http\Controllers\LevelUsersCount::class);
