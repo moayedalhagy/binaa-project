@@ -114,7 +114,7 @@ class LevelService
             ->versions()
             ->where('id', $versionId)
             ->first()
-            ->questions;
+            ?->questions;
     }
 
 
