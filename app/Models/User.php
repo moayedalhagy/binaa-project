@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -58,5 +59,10 @@ class User extends Authenticatable
     public function histories(): HasMany
     {
         return $this->hasMany(History::class);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('level_assigned_at',  '<=',  Carbon::now()->subDays(30));
     }
 }

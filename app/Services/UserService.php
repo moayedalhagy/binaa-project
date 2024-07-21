@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function getAll()
+    public function getAll($inactive = false)
     {
-        return User::with('role')->simplePaginate();
+
+        $user = User::query();
+
+        if ($inactive) {
+            $user = User::inactive();
+        }
+        return $user->with(['role', 'version.level'])->simplePaginate();
     }
 
     public function create(mixed $request): User

@@ -21,6 +21,7 @@ class UserResource extends JsonResource
                 // 'level_assigned_at' => $this->level_assigned_at,
             ]),
             "role" => $this->whenLoaded('role'),
+            'level' => new LevelResource($this->whenLoaded('version')->level, true),
 
             // "last_activity_time" => $this->last_activity_time,
             // "created_by" => $this->created_by,

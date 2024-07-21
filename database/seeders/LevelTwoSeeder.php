@@ -44,7 +44,7 @@ class LevelTwoSeeder extends Seeder
                     $daySatQ2 = Question::create([
                         'version_id' => $version->id,
                         'label' => 'تجريب مستوى ثاني',
-                        'points' => 10,
+                        'points' => 1,
                         'type' => QuestionType::Multichoice,
                         'day' => $day,
                         'sort_order' => $item['sort_order']
@@ -60,7 +60,7 @@ class LevelTwoSeeder extends Seeder
                 Question::create([
                     'version_id' => $version->id,
                     'label' => $item['label'],
-                    'points' => 10,
+                    'points' => 1,
                     'type' => QuestionType::Checkbox,
                     'day' => $day,
                     'sort_order' => $item['sort_order']
@@ -98,7 +98,7 @@ class LevelTwoSeeder extends Seeder
             $question = Question::create([
                 'version_id' => $version->id,
                 'label' => $item['label'],
-                'points' => 10,
+                'points' => 1,
                 'type' => QuestionType::Multichoice,
                 'day' => Days::Friday,
                 'sort_order' => $item['sort_order']

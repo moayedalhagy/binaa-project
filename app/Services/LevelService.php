@@ -150,5 +150,42 @@ class LevelService
     {
         return Level::with(['versions', 'versions.questions'])->get();
     }
+
+
+    private function successRateCalc(Version $version)
+    {
+        $select = sprintf('(SUM(points)/%s) * 100 as points , user_id', $version->questions->sum('points'));
+
+
+        return $version
+            ->histories()
+            ->groupBy('version_id')
+            ->groupBy('user_id')
+            ->selectRaw($select)
+            ->pluck('points')
+            ->avg();
+    }
+    public function versionsSuccessRate(string $levelId)
+    {
+        $level = $this->get($levelId)
+            ->with('versions')
+            ->first();
+
+        $result = [
+            'id' => $level->id,
+            'label' => $level->label,
+            'versions' => []
+        ];
+        foreach ($level->versions as $version) {
+
+            $result['versions'][] =
+                [
+                    'id' => $version->id,
+                    'avg' => $this->successRateCalc($version)
+                ];
+        }
+
+        return $result;
+    }
 }
 // (new \App\Services\LevelService)->publishLevel(1)

@@ -1,8 +1,11 @@
 <?php
 
 use App\Enums\Days;
+use App\Models\Version;
+use App\Services\LevelService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Number;
 
 Route::apiResource('levels', App\Http\Controllers\LevelController::class);
 
@@ -37,10 +40,14 @@ Route::prefix('questions/{id}')
 
 Route::get('roles', App\Http\Controllers\RolesController::class);
 
-Route::get('statistics', \App\Http\Controllers\StatisticsController::class);
 
 
-// Route::get('/test', function () {
-// });
+Route::controller(\App\Http\Controllers\StatisticsController::class)->group(function () {
 
-Route::get('/levels-users-count', \App\Http\Controllers\LevelUsersCount::class);
+    Route::get('users-status', 'usersStatus');
+
+    // uncompleted
+    Route::get('/levels-users-count', 'levelUsersCount');
+
+    Route::get('/level-success-rate/{id}', 'versionsSuccessRate');
+});

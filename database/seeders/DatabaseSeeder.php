@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             LevelTwoSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            HistorySeeder::class,
         ]);
     }
 }
+// WHERE `version_id` = 1 AND `day` BETWEEN 1 AND 7

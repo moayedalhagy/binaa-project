@@ -24,8 +24,13 @@ class UserController extends Controller
 
     public function index()
     {
-        return new WrapCollection($this->service->getAll(), $this->resourceTransformer);
+
+        $inactive = array_key_exists('inactive', request()->query());
+
+        return new WrapCollection($this->service->getAll($inactive), $this->resourceTransformer);
     }
+
+
 
 
     public function store(StoreUserRequest $request)
