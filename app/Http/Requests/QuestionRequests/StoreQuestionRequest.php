@@ -15,7 +15,12 @@ class StoreQuestionRequest extends FormRequest
         return true;
     }
 
-
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'day' => is_array($this->day) ? $this->day : [$this->day]
+        ]);
+    }
     public function rules(): array
     {
 
@@ -28,7 +33,8 @@ class StoreQuestionRequest extends FormRequest
             "label" => ["required", "string"],
             "points" => ["required", "numeric"],
             "type" => ["required", Rule::in($type_cases)],
-            "day" => ["required", Rule::in($day_cases)],
+            "day" => ["required", 'array'],
+            'day.*' => ['required', Rule::in($day_cases)],
             "sort_order" => ["required", Rule::unique('questions')->where(function ($q) {
                 return
                     $q->where('sort_order', $this->sort_order)

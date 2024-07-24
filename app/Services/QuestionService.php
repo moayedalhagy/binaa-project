@@ -19,7 +19,7 @@ class QuestionService
             ->simplePaginate();
     }
 
-    public function create(mixed $request): Question
+    public function create(mixed $request)
     {
         if ((new LevelService)->isPublished($request['level_id'])) {
             ExceptionService::updatingForPublishedForbidden();
@@ -27,14 +27,29 @@ class QuestionService
         return $this->handleCreating($request);
     }
 
-    private function handleCreating(mixed $data): Question
+    private function handleCreating(mixed $data)
     {
         $data['version_id'] = (new LevelService)
             ->get($data['level_id'])
             ->currentVersion
             ->id;
 
-        return Question::create($data) ?? ExceptionService::createFailed();
+        $days = $data['day'];
+
+        DB::beginTransaction();
+        try {
+
+            foreach ($days as $day) {
+                $data['day'] = $day;
+                Question::create($data) ?? ExceptionService::createFailed();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+
+            DB::rollBack();
+
+            throw $e;
+        }
     }
 
 

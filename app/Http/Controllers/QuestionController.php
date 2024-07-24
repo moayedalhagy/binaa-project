@@ -34,8 +34,8 @@ class QuestionController extends Controller
     {
 
         $created = $this->service->create($request->validated());
-
-        return $this->successJson(new QuestionResource($created), 201);
+        // new QuestionResource($created)
+        return $this->successJson([], 201);
     }
 
 
