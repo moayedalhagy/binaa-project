@@ -43,4 +43,9 @@ class Level extends Model
         return $this->hasOne(Version::class)
             ->latest();
     }
+
+    public function latestSortOrder()
+    {
+        return $this->max('sort_order');
+    }
 }

@@ -36,4 +36,8 @@ class History extends Model
     {
         return $this->belongsTo(Option::class, 'option_id');
     }
+    public function versions(): BelongsTo
+    {
+        return $this->belongsTo(version::class, 'version_id');
+    }
 }

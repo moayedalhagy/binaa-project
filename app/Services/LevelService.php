@@ -31,6 +31,8 @@ class LevelService
 
         DB::beginTransaction();
         try {
+            $sort_order = (new Level())->latestSortOrder();
+            $data['sort_order'] = $sort_order == null ? 1 : $sort_order + 1;
             $level  = Level::create($data) ?? ExceptionService::createFailed();
 
             $level

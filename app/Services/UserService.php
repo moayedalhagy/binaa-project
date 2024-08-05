@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+
     public function getAll($inactive = false)
     {
 
