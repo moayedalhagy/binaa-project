@@ -26,6 +26,7 @@ class LevelController extends Controller
 
     public function index()
     {
+
         return new WrapCollection($this->service->getAll(), $this->resourceTransformer);
     }
 
