@@ -116,7 +116,7 @@ class LevelService
             ->versions()
             ->where('id', $versionId)
             ->first()
-            ?->questions ?? ExceptionService::notFound();
+            ->with(['questions.options'])->get()[0]->questions  ?? ExceptionService::notFound();
     }
 
 
